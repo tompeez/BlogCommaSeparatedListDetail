@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:panelGroupLayout layout="vertical" id="pgl1">
+          <af:panelHeader text="DeptEmpsEO" id="ph1">
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.WorkAroundSearchQuery.queryDescriptor}"
+                      model="#{bindings.WorkAroundSearchQuery.queryModel}"
+                      queryListener="#{bindings.WorkAroundSearchQuery.processQuery}"
+                      queryOperationListener="#{bindings.WorkAroundSearchQuery.processQueryOperation}"
+                      resultComponentId="::resId1" saveResultsLayout="never"
+                      saveQueryMode="hidden" displayMode="compact"
+                      modeChangeVisible="false" />
+          </af:panelHeader>
+          <af:table value="#{bindings.DeptEmpsVO1.collectionModel}" var="row"
+                    rows="#{bindings.DeptEmpsVO1.rangeSize}" width="1000px"
+                    emptyText="#{bindings.DeptEmpsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    fetchSize="#{bindings.DeptEmpsVO1.rangeSize}"
+                    rowBandingInterval="0"
+                    selectedRowKeys="#{bindings.DeptEmpsVO1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.DeptEmpsVO1.collectionModel.makeCurrent}"
+                    rowSelection="single" id="resId1"
+                    styleClass="AFStretchWidth"
+                    columnStretching="column:resId1c5">
+            <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.DeptId.name}"
+                       sortable="true"
+                       headerText="#{bindings.DeptEmpsVO1.hints.DeptId.label}"
+                       id="resId1c1">
+              <af:outputText value="#{row.DeptId}" id="ot5">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeptEmpsVO1.hints.DeptId.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.DepartmentName.name}"
+                       sortable="true"
+                       headerText="#{bindings.DeptEmpsVO1.hints.DepartmentName.label}"
+                       id="resId1c2">
+              <af:outputText value="#{row.DepartmentName}" id="ot1"/>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.ManagerId.name}"
+                       sortable="true"
+                       headerText="#{bindings.DeptEmpsVO1.hints.ManagerId.label}"
+                       id="resId1c3">
+              <af:outputText value="#{row.ManagerId}" id="ot3">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeptEmpsVO1.hints.ManagerId.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.LocationId.name}"
+                       sortable="true"
+                       headerText="#{bindings.DeptEmpsVO1.hints.LocationId.label}"
+                       id="resId1c4">
+              <af:outputText value="#{row.LocationId}" id="ot4">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.DeptEmpsVO1.hints.LocationId.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.EmpList.name}"
+                       sortable="true"
+                       headerText="#{bindings.DeptEmpsVO1.hints.EmpList.label}"
+                       id="resId1c5">
+              <af:outputText value="#{row.EmpList}" id="ot2"/>
+            </af:column>
+          </af:table>
+        </af:panelGroupLayout>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

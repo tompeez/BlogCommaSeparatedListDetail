@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="searchWorkAroundPageDef"
+                Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DeptEmpsVO1" RangeSize="25"
+              DataControl="AppModuleDataControl" id="DeptEmpsVO1Iterator"/>
+    <searchRegion Criteria="WorkAroundSearch"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="DeptEmpsVO1Iterator" id="WorkAroundSearchQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="DeptEmpsVO1Iterator" id="DeptEmpsVO1">
+      <nodeDefinition DefName="model.DeptEmpsVO" Name="DeptEmpsVO10">
+        <AttrNames>
+          <Item Value="DeptId"/>
+          <Item Value="DepartmentName"/>
+          <Item Value="ManagerId"/>
+          <Item Value="LocationId"/>
+          <Item Value="EmpList"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

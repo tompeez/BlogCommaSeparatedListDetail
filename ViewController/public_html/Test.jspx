@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:panelStretchLayout topHeight="50px" id="psl1">
+          <f:facet name="top">
+            <af:outputText value="Comma Separated String to Detail" id="ot1" inlineStyle="font-size:x-large;"/>
+          </f:facet>
+          <f:facet name="center">
+            <af:table value="#{bindings.DeptEmpsVO1.collectionModel}" var="row" rows="#{bindings.DeptEmpsVO1.rangeSize}"
+                      emptyText="#{bindings.DeptEmpsVO1.viewable ? 'No data to display.' : 'Access Denied.'}" fetchSize="#{bindings.DeptEmpsVO1.rangeSize}"
+                      rowBandingInterval="0" filterModel="#{bindings.DeptEmpsVO1Query.queryDescriptor}"
+                      queryListener="#{bindings.DeptEmpsVO1Query.processQuery}" filterVisible="true" varStatus="vs"
+                      selectedRowKeys="#{bindings.DeptEmpsVO1.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.DeptEmpsVO1.collectionModel.makeCurrent}" rowSelection="single" id="t1">
+              <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.DeptId.name}" filterable="true" sortable="true"
+                         headerText="#{bindings.DeptEmpsVO1.hints.DeptId.label}" id="c5">
+                <af:outputText value="#{row.DeptId}" id="ot6">
+                  <af:convertNumber groupingUsed="false" pattern="#{bindings.DeptEmpsVO1.hints.DeptId.format}"/>
+                </af:outputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.DepartmentName.name}" filterable="true" sortable="true"
+                         headerText="#{bindings.DeptEmpsVO1.hints.DepartmentName.label}" id="c2">
+                <af:outputText value="#{row.DepartmentName}" id="ot2"/>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.ManagerId.name}" filterable="true" sortable="true"
+                         headerText="#{bindings.DeptEmpsVO1.hints.ManagerId.label}" id="c4">
+                <af:outputText value="#{row.ManagerId}" id="ot5">
+                  <af:convertNumber groupingUsed="false" pattern="#{bindings.DeptEmpsVO1.hints.ManagerId.format}"/>
+                </af:outputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.LocationId.name}" filterable="true" sortable="true"
+                         headerText="#{bindings.DeptEmpsVO1.hints.LocationId.label}" id="c1">
+                <af:outputText value="#{row.LocationId}" id="ot3">
+                  <af:convertNumber groupingUsed="false" pattern="#{bindings.DeptEmpsVO1.hints.LocationId.format}"/>
+                </af:outputText>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.EmpList.name}" sortable="false" headerText="#{bindings.DeptEmpsVO1.hints.EmpList.label}"
+                         id="c6">
+                <af:outputText value="#{row.EmpList}" id="ot7"/>
+              </af:column>
+              <af:column sortProperty="#{bindings.DeptEmpsVO1.hints.EmpArray.name}" sortable="false" headerText="#{bindings.DeptEmpsVO1.hints.EmpArray.label}"
+                         id="c3">
+                <af:outputText value="#{row.EmpArray}" id="ot4"/>
+              </af:column>
+              <f:facet name="detailStamp">
+                <af:panelGroupLayout id="pgl1" layout="vertical">
+                  <af:iterator id="i1" value="#{row.EmpArray}" var="emp">
+                    <af:panelGroupLayout id="pgl2" layout="horizontal">
+                      <af:outputText value="- #{emp} - #{viewScope.EmpBean.empNameById}" id="ot8"/>
+                    </af:panelGroupLayout>
+                  </af:iterator>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:table>
+            <!-- id="af_one_column_header_stretched"  -->
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

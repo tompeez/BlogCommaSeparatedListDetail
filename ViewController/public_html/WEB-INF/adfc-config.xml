@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <view id="Test">
+    <page>/Test.jspx</page>
+  </view>
+  <managed-bean id="__6">
+    <managed-bean-name id="__8">EmpBean</managed-bean-name>
+    <managed-bean-class id="__5">view.beans.EmpBean</managed-bean-class>
+    <managed-bean-scope id="__7">view</managed-bean-scope>
+  </managed-bean>
+</adfc-config>

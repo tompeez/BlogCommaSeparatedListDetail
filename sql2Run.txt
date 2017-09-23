@@ -1,0 +1,43 @@
+CREATE OR REPLACE FORCE VIEW "HR"."DEPT_EMPS" ("DEPT_ID", "DEPARTMENT_NAME", "MANAGER_ID", "LOCATION_ID", "EMP_LIST") AS 
+  SELECT DEPT.DEPARTMENT_ID,
+          DEPT.DEPARTMENT_NAME,
+          DEPT.MANAGER_ID,
+          DEPT.LOCATION_ID,
+          cclist.EMP_LIST
+     FROM DEPARTMENTS DEPT,
+          
+          (       SELECT EMP_LIST.DEPARTMENT_ID,
+                      LTRIM (
+                         MAX (SYS_CONNECT_BY_PATH (EMPLOYEE_ID, ', '))
+                            KEEP (DENSE_RANK LAST ORDER BY curr),
+                         ', ')
+                         AS EMP_LIST
+                 FROM (SELECT ccr.DEPARTMENT_ID,
+                              ccs.EMPLOYEE_ID EMPLOYEE_ID,
+                              ROW_NUMBER ()
+                              OVER (PARTITION BY ccr.DEPARTMENT_ID
+                                    ORDER BY ccs.EMPLOYEE_ID)
+                                 AS curr,
+                                ROW_NUMBER ()
+                                OVER (PARTITION BY ccr.DEPARTMENT_ID
+                                      ORDER BY ccs.EMPLOYEE_ID)
+                              - 1
+                                 AS prev
+                         FROM EMPLOYEES ccs, DEPARTMENTS ccr
+                        WHERE ccs.DEPARTMENT_ID = ccr.DEPARTMENT_ID) EMP_LIST
+             GROUP BY EMP_LIST.DEPARTMENT_ID
+           CONNECT BY     prev = PRIOR curr
+                      AND EMP_LIST.DEPARTMENT_ID = PRIOR EMP_LIST.DEPARTMENT_ID
+           START WITH curr = 1
+             ORDER BY EMP_LIST.DEPARTMENT_ID) cclist
+    WHERE     DEPT.DEPARTMENT_ID = CCLIST.DEPARTMENT_ID;
+ 
+
+
+
+  CREATE OR REPLACE FORCE VIEW "HR"."EMP_LOOKUP_VW" ("EMPLOYEE_ID", "NAME", "EMP_ID_CH") AS 
+  SELECT emp.EMPLOYEE_ID,
+          emp.FIRST_NAME || emp.LAST_NAME,
+          TO_CHAR(emp.EMPLOYEE_ID)
+          
+          FROM EMPLOYEES emp;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.64.93" id="TestPageDef" Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DeptEmpsVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DeptEmpsVO1Iterator"/>
+    <searchRegion Binds="DeptEmpsVO1Iterator" Criteria="" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DeptEmpsVO1Query"/>
+    <iterator Binds="EmpLookupById" RangeSize="25" DataControl="AppModuleDataControl" id="EmpLookupByIdIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="DeptEmpsVO1Iterator" id="DeptEmpsVO1">
+      <nodeDefinition DefName="model.DeptEmpsVO" Name="DeptEmpsVO10">
+        <AttrNames>
+          <Item Value="DeptId"/>
+          <Item Value="DepartmentName"/>
+          <Item Value="ManagerId"/>
+          <Item Value="LocationId"/>
+          <Item Value="EmpArray"/>
+          <Item Value="EmpList"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="EmpLookupByIdIterator" id="ExecuteWithParams" RequiresUpdateModel="true" Action="executeWithParams">
+      <NamedData NDName="bindId" NDValue="#{emp}" NDType="java.lang.Integer"/>
+    </action>
+  </bindings>
+</pageDefinition>
